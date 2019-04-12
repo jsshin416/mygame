@@ -78,30 +78,7 @@
         gamescore.save()
         
     }
-    /*function change(){
-        var GameScore = Parse.Object.extend("GameScore");
-        var query = new Parse.Query(GameScore);
-        var name = Parse.User.current().get("username");
-         var gamescore = new GameScore;
-
-         query.equalTo("playerName",name)
-         query.find()
-        //query.find(Parse.GameScore.current().get("playerName"), objectId)
-
-        .then((gscore)=>{
-        var  PreScore =  gscore.get("score");
-       
-       if(score > PreScore){
-        gscore.set("score", Number.parseInt(score));
-        gscore.save();
-            }
-            else{         
-        gamescore.set("playerName", name);
-        gamescore.set("score", Number.parseInt(score));
-        gamescore.save()
-            }
-         });
-    }*/
+  
     function collisionDetection() {
         for(var c=0; c<brickColumnCount; c++) {
             for(var r=0; r<brickRowCount; r++) {
@@ -114,7 +91,7 @@
                         if(score == brickRowCount*brickColumnCount) {
                             alert("YOU WIN, CONGRATS!\n"+"Your score is "+ score); 
                               save();
-                             //change();
+                            
                             document.location.reload();
                         }
                     }
@@ -186,7 +163,7 @@
                 if(!lives) {
                     alert("GAME OVER\n"+"Your score is "+ score);
                     save();
-                    //change();
+               
                     document.location.reload();
                 }
                 else {
