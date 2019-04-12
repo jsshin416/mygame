@@ -1,0 +1,77 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Collect Click Position Log-main</title>
+	<meta name ="description" content="My Parse App">
+	<meta name ="viewport" content="width=device-width">
+
+	 <script src="https://npmcdn.com/parse@2.1.0/dist/parse.js"></script>
+	 <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"> </script>
+
+	 </head> 
+     
+     <body>
+     		<div id="info">
+	     		<span id="id"></span>
+	     		<input type="button" value="LOGOUT" onclick="logout()">
+		     </div>
+
+		     	<h3> Collect Click Position Log </h3>
+
+		     	<div id="log"></div>
+
+		     	<script type="text/javascript">
+		 		Parse.initialize("ShinJiSung");
+				Parse.serverURL="http://localhost:1337/parse"
+
+				$(document).ready(function(){
+					if(!Parse.User.current()){
+						alert("Please after Login");
+						window.location = "signin.html"
+					}
+					else{
+						$("#id").html("Welcome!" + Parse.User.current().get("username")+ " ");
+						var GameScore = Parse.Object.extend("GameScore");
+                        var query  = new GameScore();
+
+						query.find()
+						.then((list)=>{
+							var dataStr = "";
+							for(index in list){
+								var posStr = "Score : " + list[index].get("score") 
+								dataStr = dataStr + posStr + " save success <br>";
+							}
+							$("#log").html(dataStr);
+						})
+					}
+				});
+				function logout(){
+					Parse.User.logOut();
+					window.location = "signin.html";
+				}
+
+				function savePositionLog(posX, posY){
+					var posStr = "X : " + posX + " " + "Y : " + posY
+					var ClickPosition = Parse.Object.extend("ClickPosition");
+					var position = new ClickPosition();
+					position.setACL(new Parse.ACL(Parse.User.current()));
+					position.set("PosX", posX);
+					position.set("PosY", posY);
+
+					position.save()
+					.then((data)=>{
+						$("#log").html($("#log").html() + posStr + " save success <br>");
+					},(error) => {
+						$("#log").html($("#log").html() + posStr + " save error : " + error.message + "<br>")
+					});						
+				}
+
+				$(document).on("click", function(data){
+					savePositionLog(data.pageX, data.pageY);
+				});
+     	</script>
+     </body>
+ </head>
+
+</html>
