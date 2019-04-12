@@ -68,17 +68,36 @@
     Parse.User.logOut();
     window.location = "signin.html";
     }
-    function save(){
-        var GameScore = Parse.Object.extend("GameScore");
-        var gamescore = new GameScore;
-        var name = Parse.User.current().get("username");
+    
+   function saveRecord(score) { 
+  var GameScore = Parse.Object.extend("GameScore");
+  var gameScore = new GameScore();
+  var query = new Parse.Query(GameScore);
 
-        gamescore.set("playerName", name);
-        gamescore.set("score", Number.parseInt(score));
-        gamescore.save()
-        
+  query.fullText("playerName", Parse.User.current().get("username"));
+
+  query.find()
+  .then(function(results) {
+    if(results.length == 0) {
+      gameScore.set("playerName", Parse.User.current().get("username"));
+      gameScore.set("score", score);
+      gameScore.save();
+     // alert("첫번째 판이시네요!");
     }
-  
+    else {
+      var gamePlayer = results[0];
+      if(gamePlayer.get("score") > score) {
+        gamePlayer.set("score", score);
+        gamePlayer.save();
+        alert("신기록!");
+      }
+      else {
+        alert("더 잘해 보자!")
+      }
+    }
+  });
+}
+ 
     function collisionDetection() {
         for(var c=0; c<brickColumnCount; c++) {
             for(var r=0; r<brickRowCount; r++) {
@@ -90,7 +109,7 @@
                         score++;
                         if(score == brickRowCount*brickColumnCount) {
                             alert("YOU WIN, CONGRATS!\n"+"Your score is "+ score); 
-                              save();
+                              saveRecord(score);
                             
                             document.location.reload();
                         }
@@ -162,7 +181,7 @@
                 lives--;
                 if(!lives) {
                     alert("GAME OVER\n"+"Your score is "+ score);
-                    save();
+                    saveRecord(score);
                
                     document.location.reload();
                 }
@@ -186,6 +205,11 @@
         requestAnimationFrame(draw);
     }
     draw();
+    
+   function showRanking() {
+  window.location = "rank.html";
+}
+    
 </script>
 
 </body>
