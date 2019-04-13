@@ -86,7 +86,7 @@
     }
     else {
       var gamePlayer = results[0];
-      if(gamePlayer.get("score") > score) {
+      if(gamePlayer.get("score") <score) {
         gamePlayer.set("score", score);
         gamePlayer.save();
         alert("신기록!");
