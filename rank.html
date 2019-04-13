@@ -37,7 +37,7 @@
 
         var GameScore = Parse.Object.extend("GameScore");
         var query = new Parse.Query(GameScore);
-        query.ascending("score");
+        query.descending("score");
         query.find()
         .then(function(results) {
             for(var i = 0; i < results.length; i++) {
