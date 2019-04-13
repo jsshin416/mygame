@@ -32,8 +32,8 @@
         var ballRadius = 10;
         var x = canvas.width/2;
         var y = canvas.height-30;
-        var dx = 5;
-        var dy = -5;
+        var dx = 7;
+        var dy = -7;
         var paddleHeight = 10;
         var paddleWidth = 75;
         var paddleX = (canvas.width-paddleWidth)/2;
@@ -74,7 +74,7 @@
   var gameScore = new GameScore();
   var query = new Parse.Query(GameScore);
 
- // query.fullText("playerName", Parse.User.current().get("username"));
+   query.fullText("playerName", Parse.User.current().get("username"));
 
   query.find()
   .then(function(results) {
@@ -186,8 +186,8 @@
                 else {
                     x = canvas.width/2;
                     y = canvas.height-30;
-                    dx = 5;
-                    dy = -5;
+                    dx = 7;
+                    dy = -7;
                     paddleX = (canvas.width-paddleWidth)/2;
                 }
             }
