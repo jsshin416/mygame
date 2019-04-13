@@ -13,6 +13,8 @@
 	<div class="container">
      <ul class="collection with-header col s3">
       <li class="collection-header"><h4>Game Ranking</h4></li>
+     <p> <input type="button" value="LOGOUT" onclick="logout()"></p>
+     <p> <input type="button" value="RETRY" onclick="retry()"></p>
      </ul>
      <ol id="addli" class="collection with-header col s3">
      </ol>
@@ -21,6 +23,16 @@
 	<script type="text/javascript">
         Parse.initialize("ShinJiSung");
         Parse.serverURL="https://polar-ocean-70851.herokuapp.com/parse"
+		
+		
+	   function logout(){
+          Parse.User.logOut();
+          window.location = "signin.html";
+          }
+
+	   function retry(){
+	  window.location = "break brick.html";
+	  }
 
         var GameScore = Parse.Object.extend("GameScore");
         var query = new Parse.Query(GameScore);
