@@ -111,7 +111,7 @@
                             alert("YOU WIN, CONGRATS!\n"+"Your score is "+ score); 
                               saveRecord(score);
                               showRanking();
-                           // document.location.reload();
+                           document.location.reload();
                         }
                     }
                 }
@@ -181,8 +181,8 @@
                 lives--;
                 if(!lives) {
                     alert("GAME OVER\n"+"Your score is "+ score);
-        
-                    //document.location.reload();
+                      showRanking();
+                    document.location.reload();
                 }
                 else {
                     x = canvas.width/2;
