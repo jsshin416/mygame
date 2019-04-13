@@ -110,8 +110,8 @@
                         if(score == brickRowCount*brickColumnCount) {
                             alert("YOU WIN, CONGRATS!\n"+"Your score is "+ score); 
                               saveRecord(score);
-                            
-                            document.location.reload();
+                              showRanking();
+                           // document.location.reload();
                         }
                     }
                 }
@@ -182,8 +182,8 @@
                 if(!lives) {
                     alert("GAME OVER\n"+"Your score is "+ score);
                     saveRecord(score);
-               
-                    document.location.reload();
+                     showRanking();
+                    //document.location.reload();
                 }
                 else {
                     x = canvas.width/2;
@@ -204,11 +204,12 @@
         y += dy;
         requestAnimationFrame(draw);
     }
-    draw();
     
-   function showRanking() {
+    draw();
+     function showRanking() {
   window.location = "rank.html";
 }
+  
     
 </script>
 
