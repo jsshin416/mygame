@@ -74,7 +74,7 @@
   var gameScore = new GameScore();
   var query = new Parse.Query(GameScore);
 
-  query.fullText("playerName", Parse.User.current().get("username"));
+ // query.fullText("playerName", Parse.User.current().get("username"));
 
   query.find()
   .then(function(results) {
